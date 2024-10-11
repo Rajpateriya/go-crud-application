@@ -12,7 +12,7 @@ import (
 
 const baseURL = "https://jsonplaceholder.typicode.com/posts"
 
-// Post represents the structure of a post.
+
 type Post struct {
     UserID int    `json:"userId"`
     ID     int    `json:"id,omitempty"`
@@ -20,7 +20,7 @@ type Post struct {
     Body   string `json:"body"`
 }
 
-// Handler for creating a post
+
 func createPost(w http.ResponseWriter, r *http.Request) {
     var post Post
     err := json.NewDecoder(r.Body).Decode(&post)
@@ -42,7 +42,6 @@ func createPost(w http.ResponseWriter, r *http.Request) {
     w.Write(body)
 }
 
-// Handler for reading all posts
 func readPosts(w http.ResponseWriter, r *http.Request) {
     resp, err := http.Get(baseURL)
     if err != nil {
@@ -56,20 +55,18 @@ func readPosts(w http.ResponseWriter, r *http.Request) {
     w.Write(body)
 }
 
-// Handler for updating a post
 func updatePost(w http.ResponseWriter, r *http.Request) {
     vars := mux.Vars(r)
     id := vars["id"]
 
-    // Read the request body
+    
     body, err := ioutil.ReadAll(r.Body)
     if err != nil {
         http.Error(w, err.Error(), http.StatusBadRequest)
         return
     }
-    defer r.Body.Close() // Close the request body when done
+    defer r.Body.Close() 
 
-    // Create the new request for updating the post
     req, err := http.NewRequest(http.MethodPut, fmt.Sprintf("%s/%s", baseURL, id), bytes.NewBuffer(body))
     if err != nil {
         http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -85,14 +82,13 @@ func updatePost(w http.ResponseWriter, r *http.Request) {
     }
     defer resp.Body.Close()
 
-    // Read the response body
     responseBody, _ := ioutil.ReadAll(resp.Body)
     w.WriteHeader(resp.StatusCode)
     w.Write(responseBody)
 }
 
 
-// Handler for deleting a post
+
 func deletePost(w http.ResponseWriter, r *http.Request) {
     vars := mux.Vars(r)
     id := vars["id"]
