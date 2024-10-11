@@ -1,0 +1,35 @@
+# Binaries
+/bin
+/*.exe
+/*.exe~
+/*.out
+/*.o
+/*.a
+
+# Vendor directory
+/vendor/
+
+# Go workspace files
+go.work
+go.work.pure
+
+# Build artifacts
+/build/
+*.test
+
+# Dependency directories
+/.idea/
+/.vscode/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Editor specific files
+*.swp
+*.swo
+*.tmp
+*.bak
+
+# Log files
+*.log
